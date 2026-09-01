@@ -62,6 +62,9 @@ export function AboutPage() {
           </div>
         </section>
 
+        <ExperienceTimeline />
+        <GitHubActivity />
+
         {/* =====================================================
       OFF THE CLOCK
       ===================================================== */}
@@ -93,8 +96,6 @@ export function AboutPage() {
         </section>
       </PageFrame>
 
-      <GitHubActivity />
-      <ExperienceTimeline />
       <BehindTheCurtains />
       <ContactFooter />
     </SiteShell>
