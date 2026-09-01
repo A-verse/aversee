@@ -6869,3 +6869,210 @@ body {
     margin-bottom: 140px;
   }
 }
+
+/* =========================
+   OFF THE CLOCK
+   ========================= */
+
+.off-clock-section {
+  width: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+.off-clock-card {
+  width: 100%;
+  display: grid;
+  grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
+  align-items: stretch;
+  gap: 0;
+  overflow: hidden;
+  border-radius: 1.5rem;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: #080808;
+  box-sizing: border-box;
+}
+
+.off-clock-image {
+  width: 100%;
+  min-width: 0;
+  height: 100%;
+  min-height: 360px;
+  overflow: hidden;
+}
+
+.off-clock-image img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  min-height: 360px;
+  object-fit: cover;
+}
+
+.off-clock-content {
+  min-width: 0;
+  padding: clamp(2rem, 4vw, 4rem);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  box-sizing: border-box;
+}
+
+.off-clock-eyebrow {
+  margin: 0 0 1rem;
+  color: rgba(255, 255, 255, 0.5);
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  line-height: 1.2;
+}
+
+.off-clock-title {
+  margin: 0;
+  max-width: 620px;
+  color: #fff;
+  font-size: clamp(2rem, 4vw, 4rem);
+  font-weight: 600;
+  line-height: 0.98;
+  letter-spacing: -0.045em;
+  overflow-wrap: break-word;
+}
+
+.off-clock-description {
+  max-width: 560px;
+  margin: 1.5rem 0 0;
+  color: #aeb8c8;
+  font-size: 1rem;
+  line-height: 1.7;
+}
+
+.off-clock-link {
+  display: inline-flex;
+  align-items: center;
+  width: fit-content;
+  margin-top: 2rem;
+  color: #fff;
+  font-size: 0.9rem;
+  font-weight: 600;
+  text-decoration: none;
+  transition: opacity 0.2s ease;
+}
+
+.off-clock-link:hover {
+  opacity: 0.65;
+}
+
+/* =========================
+   TABLET
+   ========================= */
+
+@media (max-width: 900px) {
+  .off-clock-card {
+    grid-template-columns: minmax(0, 0.85fr) minmax(0, 1.15fr);
+    border-radius: 1.25rem;
+  }
+
+  .off-clock-image {
+    min-height: 320px;
+  }
+
+  .off-clock-image img {
+    min-height: 320px;
+  }
+
+  .off-clock-content {
+    padding: 2rem;
+  }
+
+  .off-clock-title {
+    font-size: clamp(1.8rem, 4.5vw, 3rem);
+  }
+
+  .off-clock-description {
+    font-size: 0.95rem;
+    line-height: 1.65;
+  }
+}
+
+/* =========================
+   MOBILE
+   ========================= */
+
+@media (max-width: 700px) {
+  .off-clock-card {
+    grid-template-columns: 1fr;
+    width: 100%;
+    border-radius: 1.15rem;
+  }
+
+  .off-clock-image {
+    width: 100%;
+    height: 240px;
+    min-height: 240px;
+  }
+
+  .off-clock-image img {
+    width: 100%;
+    height: 240px;
+    min-height: 240px;
+    object-fit: cover;
+  }
+
+  .off-clock-content {
+    width: 100%;
+    min-width: 0;
+    padding: 1.5rem;
+  }
+
+  .off-clock-eyebrow {
+    margin-bottom: 0.8rem;
+    font-size: 0.68rem;
+  }
+
+  .off-clock-title {
+    max-width: 100%;
+    font-size: clamp(1.9rem, 8vw, 2.6rem);
+    line-height: 1;
+    letter-spacing: -0.04em;
+    overflow-wrap: anywhere;
+  }
+
+  .off-clock-description {
+    max-width: 100%;
+    margin-top: 1.1rem;
+    font-size: 0.9rem;
+    line-height: 1.65;
+  }
+
+  .off-clock-link {
+    margin-top: 1.4rem;
+  }
+}
+
+/* =========================
+   SMALL MOBILE
+   ========================= */
+
+@media (max-width: 420px) {
+  .off-clock-image {
+    height: 210px;
+    min-height: 210px;
+  }
+
+  .off-clock-image img {
+    height: 210px;
+    min-height: 210px;
+  }
+
+  .off-clock-content {
+    padding: 1.25rem;
+  }
+
+  .off-clock-title {
+    font-size: 1.85rem;
+  }
+
+  .off-clock-description {
+    font-size: 0.86rem;
+  }
+}
