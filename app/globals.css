@@ -1092,87 +1092,541 @@ select {
   }
 }
 
-/* Off the Clock — Instagram-style grid */
-.ig-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 4px;
-  border-radius: 1rem;
-  overflow: hidden;
-}
-.ig-tile {
-  position: relative;
-  aspect-ratio: 1;
-  background: #0a0a0a;
-}
-.ig-tile-photo {
-  overflow: hidden;
-}
-.ig-tile-overlay {
-  position: absolute;
-  inset: 0;
+/* =========================================================
+   OFF THE CLOCK
+   ========================================================= */
+
+.ootc-intro {
   display: flex;
   align-items: flex-end;
-  padding: 1rem;
-  background: linear-gradient(180deg, transparent 50%, rgba(0, 0, 0, 0.85));
-  opacity: 0;
-  transition: opacity 0.3s;
+  justify-content: space-between;
+  gap: 3rem;
+  width: 100%;
+  margin: 0 0 3.5rem;
+  padding-bottom: 1.5rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
 }
-.ig-tile-overlay p {
-  color: #fff;
-  font-size: 0.85rem;
-  line-height: 1.4;
+
+.ootc-intro-copy {
+  position: relative;
+  max-width: 680px;
+  padding-left: 2.5rem;
 }
-.ig-tile-photo:hover .ig-tile-overlay {
-  opacity: 1;
-}
-.ig-tile-empty {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 0.5rem;
-  border: 1px dashed #333;
-  color: #555;
-  background: #020202;
-}
-.ig-tile-empty span {
-  font-size: 2rem;
-  line-height: 1;
-}
-.ig-tile-empty small {
-  font-size: 0.75rem;
-  letter-spacing: 0.05em;
-  text-transform: uppercase;
-}
-.ig-tile-writing {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  padding: 1.5rem;
-  border: 1px solid #1d1d1d;
-  background: #050505;
-}
-.ig-tile-writing .quote-mark {
+
+.ootc-intro-number {
   position: absolute;
-  right: 1rem;
-  top: 0.5rem;
-  color: #222;
-  font-size: 4rem;
+  left: 0;
+  top: 0.15rem;
+  color: rgba(255, 255, 255, 0.3);
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
 }
-.ig-tile-writing strong {
-  color: #fff;
-  font-size: 1.05rem;
-  margin-bottom: 0.5rem;
+
+.ootc-intro-copy p {
+  margin: 0;
+  color: #d8deea;
+  font-size: 1.15rem;
+  line-height: 1.6;
+  letter-spacing: -0.015em;
 }
-.ig-tile-writing p {
-  color: #8f9aac;
-  font-size: 0.85rem;
+
+.ootc-intro-copy small {
+  display: block;
+  margin-top: 0.7rem;
+  color: #687386;
+  font-size: 0.75rem;
   line-height: 1.5;
 }
-@media (max-width: 700px) {
-  .ig-grid {
-    grid-template-columns: repeat(2, 1fr);
+
+/* FILTERS */
+
+.ootc-filters {
+  display: inline-flex;
+  align-items: center;
+  flex-shrink: 0;
+  padding: 0.3rem;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.025);
+}
+
+.ootc-filters button {
+  border: 0;
+  outline: 0;
+  cursor: pointer;
+  padding: 0.55rem 0.9rem;
+  border-radius: 999px;
+  background: transparent;
+  color: #697384;
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  transition:
+    color 0.25s ease,
+    background 0.25s ease;
+}
+
+.ootc-filters button:hover {
+  color: #fff;
+}
+
+.ootc-filters .ootc-filter-active {
+  color: #0a0a0a;
+  background: #fff;
+}
+
+/* =========================================================
+   GRID
+   ========================================================= */
+
+.ootc-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  grid-auto-rows: 250px;
+  gap: 1rem;
+  width: 100%;
+}
+
+/* BASE ENTRY */
+
+.ootc-entry {
+  position: relative;
+  min-width: 0;
+  min-height: 0;
+  overflow: hidden;
+  border-radius: 1.1rem;
+  box-sizing: border-box;
+}
+
+/* =========================================================
+   PHOTOS
+   ========================================================= */
+
+.ootc-photo {
+  display: block;
+  width: 100%;
+  height: 100%;
+  padding: 0;
+  border: 1px solid rgba(255, 255, 255, 0.07);
+  background: #0b0b0b;
+  cursor: pointer;
+  text-align: left;
+}
+
+.ootc-photo-tall {
+  grid-row: span 2;
+}
+
+.ootc-photo-wide {
+  grid-column: span 2;
+}
+
+.ootc-photo-image {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+}
+
+.ootc-photo-image img {
+  transition:
+    transform 0.7s cubic-bezier(0.22, 1, 0.36, 1),
+    filter 0.5s ease;
+}
+
+.ootc-photo:hover .ootc-photo-image img {
+  transform: scale(1.045);
+  filter: brightness(0.8);
+}
+
+.ootc-photo-meta {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 2;
+  padding: 4rem 1.25rem 1.2rem;
+  background: linear-gradient(
+    to top,
+    rgba(0, 0, 0, 0.8),
+    rgba(0, 0, 0, 0.15),
+    transparent
+  );
+  pointer-events: none;
+}
+
+.ootc-photo-meta span {
+  display: block;
+  margin-bottom: 0.35rem;
+  color: rgba(255, 255, 255, 0.5);
+  font-size: 0.58rem;
+  font-weight: 700;
+  letter-spacing: 0.15em;
+}
+
+.ootc-photo-meta p {
+  max-width: 90%;
+  margin: 0;
+  color: #fff;
+  font-size: 0.82rem;
+  line-height: 1.4;
+}
+
+/* =========================================================
+   EMPTY PHOTO
+   ========================================================= */
+
+.ootc-empty {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 1.25rem;
+  border: 1px dashed rgba(255, 255, 255, 0.13);
+  background:
+    linear-gradient(135deg, rgba(255, 255, 255, 0.035), transparent 50%),
+    #080808;
+}
+
+.ootc-empty-wide {
+  grid-column: span 2;
+}
+
+.ootc-empty-mark {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.6rem;
+  height: 2.6rem;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 50%;
+  color: rgba(255, 255, 255, 0.5);
+  font-size: 1.3rem;
+}
+
+.ootc-empty-mark span {
+  transform: translateY(-1px);
+}
+
+.ootc-empty-copy {
+  max-width: 280px;
+}
+
+.ootc-empty-copy small {
+  display: block;
+  margin-bottom: 0.45rem;
+  color: #596272;
+  font-size: 0.58rem;
+  font-weight: 700;
+  letter-spacing: 0.15em;
+}
+
+.ootc-empty-copy p {
+  margin: 0;
+  color: #7f8999;
+  font-size: 0.8rem;
+  line-height: 1.5;
+}
+
+/* =========================================================
+   WRITING
+   ========================================================= */
+
+.ootc-writing {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 1.4rem;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  background:
+    radial-gradient(
+      circle at 90% 10%,
+      rgba(120, 100, 255, 0.08),
+      transparent 40%
+    ),
+    #0a0a0a;
+}
+
+.ootc-writing-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.ootc-writing-label {
+  color: rgba(255, 255, 255, 0.4);
+  font-size: 0.58rem;
+  font-weight: 700;
+  letter-spacing: 0.15em;
+}
+
+.ootc-writing-top small {
+  color: #586171;
+  font-size: 0.65rem;
+}
+
+.ootc-writing-body {
+  position: relative;
+  padding-left: 0.1rem;
+}
+
+.ootc-quote {
+  display: block;
+  margin-bottom: -0.35rem;
+  color: rgba(255, 255, 255, 0.18);
+  font-family: Georgia, serif;
+  font-size: 3rem;
+  line-height: 1;
+}
+
+.ootc-writing h3 {
+  margin: 0;
+  color: #f3f5f8;
+  font-size: 1.45rem;
+  font-weight: 500;
+  letter-spacing: -0.035em;
+}
+
+.ootc-writing p {
+  max-width: 330px;
+  margin: 0.7rem 0 0;
+  color: #8d97a8;
+  font-size: 0.82rem;
+  line-height: 1.6;
+}
+
+.ootc-writing-line {
+  width: 100%;
+  height: 1px;
+  background: linear-gradient(to right, rgba(255, 255, 255, 0.15), transparent);
+}
+
+/* =========================================================
+   BOTTOM
+   ========================================================= */
+
+.ootc-bottom {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 2rem;
+  padding-top: 1.2rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.ootc-bottom span {
+  color: #4f5968;
+  font-size: 0.6rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+}
+
+.ootc-bottom a {
+  color: #7c8798;
+  font-size: 0.75rem;
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.ootc-bottom a:hover {
+  color: #fff;
+}
+
+/* =========================================================
+   LIGHTBOX
+   ========================================================= */
+
+.ootc-lightbox {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+  background: rgba(0, 0, 0, 0.88);
+  backdrop-filter: blur(16px);
+}
+
+.ootc-lightbox-frame {
+  position: relative;
+  width: min(1000px, 90vw);
+  height: min(760px, 82vh);
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 1rem;
+  background: #050505;
+}
+
+.ootc-lightbox-frame img {
+  object-fit: contain;
+}
+
+.ootc-lightbox-caption {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 3;
+  padding: 4rem 1.5rem 1.25rem;
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.9), transparent);
+}
+
+.ootc-lightbox-caption p {
+  margin: 0;
+  color: #fff;
+  font-size: 0.85rem;
+}
+
+.ootc-lightbox-close {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  z-index: 4;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.3rem;
+  height: 2.3rem;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 50%;
+  background: rgba(0, 0, 0, 0.55);
+  color: #fff;
+  cursor: pointer;
+  font-size: 1.4rem;
+  line-height: 1;
+}
+
+/* =========================================================
+   TABLET
+   ========================================================= */
+
+@media (max-width: 900px) {
+  .ootc-intro {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+
+  .ootc-filters {
+    align-self: flex-start;
+  }
+
+  .ootc-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    grid-auto-rows: 230px;
+  }
+
+  .ootc-photo-tall {
+    grid-row: span 2;
+  }
+}
+
+/* =========================================================
+   MOBILE
+   ========================================================= */
+
+@media (max-width: 600px) {
+  .ootc-intro {
+    margin-bottom: 2rem;
+    gap: 1.25rem;
+  }
+
+  .ootc-intro-copy {
+    padding-left: 2rem;
+  }
+
+  .ootc-intro-copy p {
+    font-size: 0.98rem;
+    line-height: 1.6;
+  }
+
+  .ootc-intro-copy small {
+    font-size: 0.7rem;
+  }
+
+  .ootc-filters {
+    width: 100%;
+  }
+
+  .ootc-filters button {
+    flex: 1;
+    padding: 0.55rem 0.5rem;
+  }
+
+  .ootc-grid {
+    grid-template-columns: 1fr;
+    grid-auto-rows: auto;
+    gap: 0.8rem;
+  }
+
+  .ootc-entry,
+  .ootc-photo-tall,
+  .ootc-photo-wide,
+  .ootc-empty-wide {
+    grid-column: auto;
+    grid-row: auto;
+  }
+
+  .ootc-photo {
+    height: 300px;
+  }
+
+  .ootc-photo-tall {
+    height: 390px;
+  }
+
+  .ootc-photo-wide {
+    height: 270px;
+  }
+
+  .ootc-empty {
+    min-height: 230px;
+  }
+
+  .ootc-writing {
+    min-height: 280px;
+    padding: 1.25rem;
+  }
+
+  .ootc-writing h3 {
+    font-size: 1.3rem;
+  }
+
+  .ootc-bottom {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .ootc-lightbox {
+    padding: 1rem;
+  }
+
+  .ootc-lightbox-frame {
+    width: 100%;
+    height: 75vh;
+  }
+}
+
+/* =========================================================
+   SMALL MOBILE
+   ========================================================= */
+
+@media (max-width: 400px) {
+  .ootc-photo {
+    height: 270px;
+  }
+
+  .ootc-photo-tall {
+    height: 350px;
+  }
+
+  .ootc-photo-wide {
+    height: 250px;
+  }
+
+  .ootc-writing {
+    min-height: 260px;
   }
 }
 

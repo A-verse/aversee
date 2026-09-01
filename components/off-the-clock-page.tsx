@@ -8,14 +8,24 @@ import { Reveal } from "./reveal";
 import { BehindTheCurtains, ContactFooter } from "./home-sections";
 
 type Entry =
-  | { type: "photo"; src: string; caption: string; size?: "tall" | "wide" }
-  | { type: "photo-empty"; caption: string; size?: "tall" | "wide" }
-  | { type: "writing"; title: string; excerpt: string; date: string };
+  | {
+      type: "photo";
+      src: string;
+      caption: string;
+      size?: "tall" | "wide";
+    }
+  | {
+      type: "photo-empty";
+      caption: string;
+      size?: "tall" | "wide";
+    }
+  | {
+      type: "writing";
+      title: string;
+      excerpt: string;
+      date: string;
+    };
 
-// TODO(Anjali): replace the "photo-empty" tiles with real photos as you take
-// them, and the "writing" excerpts with actual notes/journal snippets.
-// This grid is meant to feel unfinished and honest, not polished — add to it
-// over time rather than filling it all at once.
 const entries: Entry[] = [
   {
     type: "photo",
@@ -27,7 +37,7 @@ const entries: Entry[] = [
     type: "writing",
     title: "On starting over",
     excerpt:
-      "Add a short note here — a few lines on something you\u2019ve been thinking about.",
+      "Add a short note here — a few lines on something you’ve been thinking about.",
     date: "Aug 2026",
   },
   {
@@ -35,30 +45,43 @@ const entries: Entry[] = [
     src: "/images/travel-forest.jpg",
     caption: "Forest air, bad phone signal, good thinking conditions.",
   },
-  { type: "photo-empty", caption: "Add a photo" },
+  {
+    type: "photo-empty",
+    caption: "A space for something I haven't photographed yet.",
+  },
   {
     type: "writing",
     title: "Untitled",
     excerpt:
-      "Add a short note here — a few lines on something you\u2019ve been thinking about.",
+      "Add a short note here — a few lines on something you’ve been thinking about.",
     date: "Planned",
   },
-  { type: "photo-empty", caption: "Add a photo", size: "wide" },
-  { type: "photo-empty", caption: "Add a photo" },
+  {
+    type: "photo-empty",
+    caption: "Another little frame waiting for a memory.",
+    size: "wide",
+  },
+  {
+    type: "photo-empty",
+    caption: "Add a photo",
+  },
   {
     type: "writing",
     title: "Untitled",
-    excerpt:
-      "Add a short note here — a few lines on something you\u2019ve been thinking about.",
+    excerpt: "Some thoughts are better left half-finished for a while.",
     date: "Planned",
   },
-  { type: "photo-empty", caption: "Add a photo" },
+  {
+    type: "photo-empty",
+    caption: "Add a photo",
+  },
 ];
 
 const filters = ["All", "Photos", "Writing"] as const;
 
 export function OffTheClockPage() {
   const [filter, setFilter] = useState<(typeof filters)[number]>("All");
+
   const [lightbox, setLightbox] = useState<{
     src: string;
     caption: string;
@@ -66,11 +89,14 @@ export function OffTheClockPage() {
 
   const visible = useMemo(() => {
     if (filter === "All") return entries;
-    if (filter === "Photos")
+
+    if (filter === "Photos") {
       return entries.filter(
-        (e) => e.type === "photo" || e.type === "photo-empty",
+        (entry) => entry.type === "photo" || entry.type === "photo-empty",
       );
-    return entries.filter((e) => e.type === "writing");
+    }
+
+    return entries.filter((entry) => entry.type === "writing");
   }, [filter]);
 
   return (
@@ -83,15 +109,29 @@ export function OffTheClockPage() {
       />
 
       <PageFrame>
-        <div className="ootc-intro">
-          <p>
-            No filters, no curation pressure — just photos I liked and things I
-            wrote down. This page is meant to grow slowly, not launch finished.
-          </p>
-          <div className="ootc-filters">
+        {/* =========================
+            INTRO
+           ========================= */}
+
+        <section className="ootc-intro">
+          <div className="ootc-intro-copy">
+            <span className="ootc-intro-number">01</span>
+
+            <p>
+              No filters, no curation pressure. Just photos I liked, places I
+              remembered, and things I wrote down.
+            </p>
+
+            <small>
+              A small corner of the internet that is allowed to stay unfinished.
+            </small>
+          </div>
+
+          <div className="ootc-filters" aria-label="Filter entries">
             {filters.map((f) => (
               <button
                 key={f}
+                type="button"
                 className={f === filter ? "ootc-filter-active" : ""}
                 onClick={() => setFilter(f)}
               >
@@ -99,63 +139,115 @@ export function OffTheClockPage() {
               </button>
             ))}
           </div>
-        </div>
+        </section>
 
-        <Reveal className="ig-grid" stagger={0.06} y={16}>
+        {/* =========================
+            GRID
+           ========================= */}
+
+        <Reveal className="ootc-grid" stagger={0.07} y={18}>
           {visible.map((entry, i) => {
+            /* PHOTO */
+
             if (entry.type === "photo") {
               return (
                 <button
-                  key={i}
-                  className={`ig-tile ig-tile-photo ${entry.size === "tall" ? "ig-tile-tall" : ""} ${entry.size === "wide" ? "ig-tile-wide" : ""}`}
+                  key={`${entry.src}-${i}`}
+                  type="button"
+                  className={`ootc-entry ootc-photo ${
+                    entry.size === "tall" ? "ootc-photo-tall" : ""
+                  } ${entry.size === "wide" ? "ootc-photo-wide" : ""}`}
                   data-reveal
                   onClick={() =>
-                    setLightbox({ src: entry.src, caption: entry.caption })
+                    setLightbox({
+                      src: entry.src,
+                      caption: entry.caption,
+                    })
                   }
                 >
-                  <Image
-                    src={entry.src}
-                    alt={entry.caption}
-                    fill
-                    sizes="(min-width: 768px) 33vw, 50vw"
-                    className="object-cover"
-                  />
-                  <div className="ig-tile-overlay">
+                  <div className="ootc-photo-image">
+                    <Image
+                      src={entry.src}
+                      alt={entry.caption}
+                      fill
+                      sizes="(min-width: 1100px) 33vw, (min-width: 700px) 50vw, 100vw"
+                      className="object-cover"
+                    />
+                  </div>
+
+                  <div className="ootc-photo-meta">
+                    <span>PHOTO</span>
                     <p>{entry.caption}</p>
                   </div>
                 </button>
               );
             }
+
+            /* EMPTY PHOTO */
+
             if (entry.type === "photo-empty") {
               return (
                 <div
-                  key={i}
-                  className={`ig-tile ig-tile-empty ${entry.size === "wide" ? "ig-tile-wide" : ""}`}
+                  key={`empty-${i}`}
+                  className={`ootc-entry ootc-empty ${
+                    entry.size === "tall" ? "ootc-empty-tall" : ""
+                  } ${entry.size === "wide" ? "ootc-empty-wide" : ""}`}
                   data-reveal
                 >
-                  <span>+</span>
-                  <small>{entry.caption}</small>
+                  <div className="ootc-empty-mark">
+                    <span>+</span>
+                  </div>
+
+                  <div className="ootc-empty-copy">
+                    <small>NOT YET</small>
+                    <p>{entry.caption}</p>
+                  </div>
                 </div>
               );
             }
+
+            /* WRITING */
+
             return (
-              <div key={i} className="ig-tile ig-tile-writing" data-reveal>
-                <span className="quote-mark">&ldquo;</span>
-                <small className="ig-tile-writing-date">{entry.date}</small>
-                <strong>{entry.title}</strong>
-                <p>{entry.excerpt}</p>
-              </div>
+              <article
+                key={`writing-${i}`}
+                className="ootc-entry ootc-writing"
+                data-reveal
+              >
+                <div className="ootc-writing-top">
+                  <span className="ootc-writing-label">NOTE</span>
+
+                  <small>{entry.date}</small>
+                </div>
+
+                <div className="ootc-writing-body">
+                  <span className="ootc-quote">&ldquo;</span>
+
+                  <h3>{entry.title}</h3>
+
+                  <p>{entry.excerpt}</p>
+                </div>
+
+                <div className="ootc-writing-line" />
+              </article>
             );
           })}
         </Reveal>
 
-        <Link
-          href="/about"
-          className="mt-12 inline-block text-sm text-muted-foreground hover:text-foreground"
-        >
-          ← Back to about
-        </Link>
+        {/* =========================
+            BOTTOM
+           ========================= */}
+
+        <div className="ootc-bottom">
+          <span>MORE TO COME, EVENTUALLY.</span>
+
+          <Link href="/about">← Back to about</Link>
+        </div>
       </PageFrame>
+
+      {/* =========================
+          LIGHTBOX
+         ========================= */}
 
       {lightbox && (
         <div className="ootc-lightbox" onClick={() => setLightbox(null)}>
@@ -168,10 +260,19 @@ export function OffTheClockPage() {
               alt={lightbox.caption}
               fill
               sizes="90vw"
-              className="object-cover"
+              className="object-contain"
             />
-            <p>{lightbox.caption}</p>
-            <button onClick={() => setLightbox(null)} aria-label="Close">
+
+            <div className="ootc-lightbox-caption">
+              <p>{lightbox.caption}</p>
+            </div>
+
+            <button
+              type="button"
+              onClick={() => setLightbox(null)}
+              aria-label="Close image"
+              className="ootc-lightbox-close"
+            >
               ×
             </button>
           </div>
