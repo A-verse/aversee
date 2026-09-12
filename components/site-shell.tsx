@@ -158,6 +158,12 @@ export function SiteShell({ children }: { children: React.ReactNode }) {
             Resume
             <span>↗</span>
           </a>
+
+          {/* DESKTOP BOOK A CALL */}
+
+          <Link href="/book-call" className="resume-button">
+            Book a Call
+          </Link>
         </nav>
 
         {/* ===================================================
@@ -236,7 +242,7 @@ export function SiteShell({ children }: { children: React.ReactNode }) {
 
             Mobile ONLY.
             Home removed.
-            Resume added instead.
+            Resume + Book a Call added.
             =================================================== */}
 
         {menu && (
@@ -269,6 +275,16 @@ export function SiteShell({ children }: { children: React.ReactNode }) {
                 Resume
                 <span>↗</span>
               </a>
+
+              {/* MOBILE BOOK A CALL */}
+
+              <Link
+                href="/book-call"
+                className="resume-button"
+                onClick={() => setMenu(false)}
+              >
+                Book a Call
+              </Link>
             </div>
 
             {/* SECONDARY / FEATURED */}

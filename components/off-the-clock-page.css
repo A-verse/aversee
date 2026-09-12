@@ -1,0 +1,489 @@
+/* =========================================================
+   OFF THE CLOCK
+   ========================================================= */
+
+.ootc-photo-section {
+  width: 100%;
+  padding: 40px 0 120px;
+}
+
+/* =========================================================
+   HEADER
+   ========================================================= */
+
+.ootc-photo-header {
+  width: 100%;
+  margin-bottom: 42px;
+}
+
+.ootc-photo-header-top {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 30px;
+
+  font-size: 10px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.ootc-photo-label {
+  white-space: nowrap;
+}
+
+.ootc-photo-header-line {
+  flex: 1;
+  height: 1px;
+  background: currentColor;
+  opacity: 0.2;
+}
+
+.ootc-photo-header-small {
+  white-space: nowrap;
+  opacity: 0.45;
+}
+
+.ootc-photo-header h2 {
+  margin: 0;
+  max-width: 850px;
+
+  font-size: clamp(48px, 7vw, 104px);
+  line-height: 0.88;
+  letter-spacing: -0.065em;
+  font-weight: 500;
+}
+
+.ootc-photo-header p {
+  max-width: 430px;
+  margin: 30px 0 0 auto;
+
+  font-size: 14px;
+  line-height: 1.65;
+  opacity: 0.55;
+}
+
+.ootc-photo-wall {
+  width: 100%;
+  display: grid;
+
+  grid-template-columns: 2fr 1fr 1fr;
+  grid-template-rows: 360px 360px;
+
+  gap: 10px;
+}
+
+.ootc-wall-photo-1 {
+  grid-column: 1;
+  grid-row: 1 / 3;
+}
+
+.ootc-wall-photo-2 {
+  grid-column: 2;
+  grid-row: 1;
+}
+
+.ootc-wall-photo-3 {
+  grid-column: 3;
+  grid-row: 1;
+}
+
+.ootc-wall-photo-4 {
+  grid-column: 2;
+  grid-row: 2;
+}
+
+.ootc-wall-photo-5 {
+  grid-column: 3;
+  grid-row: 2;
+}
+
+/* =========================================================
+   PHOTO FRAME
+   ========================================================= */
+
+.ootc-wall-photo {
+  position: relative !important;
+
+  width: 100%;
+  height: 100%;
+
+  min-width: 0;
+  min-height: 0;
+
+  overflow: hidden;
+
+  background: #111;
+  isolation: isolate;
+}
+
+/* =========================================================
+   IMAGE
+   ========================================================= */
+
+.ootc-wall-image {
+  position: absolute !important;
+  inset: 0 !important;
+
+  width: 100% !important;
+  height: 100% !important;
+
+  display: block;
+
+  object-fit: cover;
+  object-position: center;
+
+  transform: scale(1);
+
+  transition:
+    transform 900ms cubic-bezier(0.2, 0.7, 0.2, 1),
+    filter 700ms ease;
+}
+
+/* =========================================================
+   INDIVIDUAL IMAGE POSITIONING
+   ========================================================= */
+
+.ootc-wall-photo-1 .ootc-wall-image {
+  object-position: center;
+}
+
+.ootc-wall-photo-2 .ootc-wall-image {
+  object-position: center;
+}
+
+.ootc-wall-photo-3 .ootc-wall-image {
+  object-position: center;
+}
+
+.ootc-wall-photo-4 .ootc-wall-image {
+  object-position: center;
+}
+
+.ootc-wall-photo-5 .ootc-wall-image {
+  object-position: center;
+}
+
+.ootc-wall-photo-6 .ootc-wall-image {
+  object-position: center;
+}
+
+.ootc-wall-photo-7 .ootc-wall-image {
+  object-position: center;
+}
+
+/* =========================================================
+   HOVER ZOOM
+   ========================================================= */
+
+.ootc-wall-photo:hover .ootc-wall-image {
+  transform: scale(1.08);
+  filter: brightness(0.88);
+}
+
+/* =========================================================
+   HOVER OVERLAY
+   ========================================================= */
+
+.ootc-wall-overlay {
+  position: absolute;
+  inset: 0;
+
+  z-index: 2;
+
+  pointer-events: none;
+
+  background: linear-gradient(
+    to top,
+    rgba(0, 0, 0, 0.75) 0%,
+    rgba(0, 0, 0, 0.28) 42%,
+    rgba(0, 0, 0, 0) 75%
+  );
+
+  opacity: 0;
+
+  transition: opacity 450ms ease;
+}
+
+.ootc-wall-photo:hover .ootc-wall-overlay {
+  opacity: 1;
+}
+
+/* =========================================================
+   CAPTION
+   ========================================================= */
+
+.ootc-wall-caption {
+  position: absolute;
+
+  left: 18px;
+  right: 18px;
+  bottom: 17px;
+
+  z-index: 3;
+
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+
+  color: white;
+
+  opacity: 0;
+  transform: translateY(12px);
+
+  pointer-events: none;
+
+  transition:
+    opacity 400ms ease,
+    transform 500ms cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+
+.ootc-wall-photo:hover .ootc-wall-caption {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* =========================================================
+   CAPTION CONTENT
+   ========================================================= */
+
+.ootc-wall-number {
+  flex: 0 0 auto;
+
+  padding-top: 3px;
+
+  font-size: 9px;
+  letter-spacing: 0.12em;
+
+  opacity: 0.7;
+}
+
+.ootc-wall-caption h3 {
+  margin: 0 0 5px;
+
+  font-size: 15px;
+  line-height: 1.1;
+  font-weight: 500;
+  letter-spacing: -0.02em;
+}
+
+.ootc-wall-caption p {
+  max-width: 300px;
+
+  margin: 0;
+
+  font-size: 11px;
+  line-height: 1.45;
+
+  opacity: 0.72;
+}
+
+/* =========================================================
+   TABLET
+   ========================================================= */
+
+@media (max-width: 900px) {
+  .ootc-photo-section {
+    padding-bottom: 90px;
+  }
+
+  .ootc-photo-header h2 {
+    font-size: clamp(48px, 9vw, 78px);
+  }
+
+  .ootc-photo-header p {
+    margin-left: 0;
+    margin-right: 0;
+    max-width: 500px;
+  }
+
+  .ootc-photo-wall {
+    grid-template-columns: 1.7fr 1fr 1fr;
+
+    grid-template-rows:
+      220px
+      220px
+      220px;
+
+    gap: 8px;
+  }
+}
+
+/* =========================================================
+   MOBILE
+   ========================================================= */
+
+@media (max-width: 700px) {
+  .ootc-photo-section {
+    padding: 25px 0 70px;
+  }
+
+  .ootc-photo-header {
+    margin-bottom: 28px;
+  }
+
+  .ootc-photo-header-top {
+    gap: 10px;
+    margin-bottom: 22px;
+
+    font-size: 8px;
+  }
+
+  .ootc-photo-header-small {
+    display: none;
+  }
+
+  .ootc-photo-header h2 {
+    font-size: clamp(42px, 13vw, 64px);
+    line-height: 0.9;
+  }
+
+  .ootc-photo-header p {
+    max-width: 340px;
+
+    margin-top: 22px;
+
+    font-size: 12px;
+    line-height: 1.55;
+  }
+
+  /* -----------------------------------------------
+     MOBILE GRID
+     ----------------------------------------------- */
+
+  .ootc-photo-wall {
+    grid-template-columns: 1.15fr 1fr;
+
+    grid-template-rows:
+      210px
+      210px
+      210px
+      220px;
+
+    gap: 7px;
+  }
+
+  /* Bee */
+  .ootc-wall-photo-1 {
+    grid-column: 1;
+    grid-row: 1 / 3;
+  }
+
+  /* Jaipur */
+  .ootc-wall-photo-2 {
+    grid-column: 2;
+    grid-row: 1;
+  }
+
+  /* Patrika */
+  .ootc-wall-photo-3 {
+    grid-column: 2;
+    grid-row: 2;
+  }
+
+  /* Kedarnath */
+  .ootc-wall-photo-4 {
+    grid-column: 1;
+    grid-row: 3;
+  }
+
+  /* Dog */
+  .ootc-wall-photo-5 {
+    grid-column: 2;
+    grid-row: 3;
+  }
+
+  /* People */
+  .ootc-wall-photo-7 {
+    grid-column: 1;
+    grid-row: 4;
+  }
+
+  /* Moon */
+  .ootc-wall-photo-6 {
+    grid-column: 2;
+    grid-row: 4;
+  }
+
+  /* Mobile caption */
+
+  .ootc-wall-caption {
+    left: 12px;
+    right: 12px;
+    bottom: 12px;
+
+    gap: 8px;
+  }
+
+  .ootc-wall-number {
+    padding-top: 2px;
+    font-size: 7px;
+  }
+
+  .ootc-wall-caption h3 {
+    margin-bottom: 3px;
+    font-size: 12px;
+  }
+
+  .ootc-wall-caption p {
+    font-size: 9px;
+    line-height: 1.35;
+  }
+
+  /* Mobile hover zoom */
+
+  .ootc-wall-photo:hover .ootc-wall-image {
+    transform: scale(1.06);
+  }
+}
+
+/* =========================================================
+   SMALL MOBILE
+   ========================================================= */
+
+@media (max-width: 420px) {
+  .ootc-photo-wall {
+    grid-template-columns: 1.1fr 1fr;
+
+    grid-template-rows:
+      180px
+      180px
+      175px
+      200px;
+
+    gap: 6px;
+  }
+
+  .ootc-wall-caption {
+    left: 10px;
+    right: 10px;
+    bottom: 10px;
+  }
+
+  .ootc-wall-caption p {
+    display: none;
+  }
+
+  .ootc-wall-caption h3 {
+    font-size: 11px;
+  }
+
+  .ootc-wall-number {
+    font-size: 6px;
+  }
+}
+
+/* =========================================================
+   REDUCED MOTION
+   ========================================================= */
+
+@media (prefers-reduced-motion: reduce) {
+  .ootc-wall-image,
+  .ootc-wall-overlay,
+  .ootc-wall-caption {
+    transition: none;
+  }
+
+  .ootc-wall-photo:hover .ootc-wall-image {
+    transform: none;
+  }
+}

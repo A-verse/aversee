@@ -105,6 +105,7 @@ export function AboutPage() {
         </section>
 
         <ExperienceTimeline />
+
         <GitHubActivity />
 
         <section className="off-clock-section">

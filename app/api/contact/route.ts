@@ -12,6 +12,7 @@ const MAX_REQUESTS_PER_MINUTE = 5;
 function getClientIdentifier(request: NextRequest) {
   const forwarded = request.headers.get("x-forwarded-for") ?? "";
   const realIp = request.headers.get("x-real-ip") ?? "";
+
   return (forwarded.split(",")[0]?.trim() || realIp || "unknown-client").slice(
     0,
     64,
@@ -19,7 +20,12 @@ function getClientIdentifier(request: NextRequest) {
 }
 
 export async function POST(request: NextRequest) {
-  let body: { name?: string; email?: string; message?: string };
+  let body: {
+    name?: string;
+    email?: string;
+    message?: string;
+  };
+
   try {
     body = await request.json();
   } catch {
@@ -31,6 +37,7 @@ export async function POST(request: NextRequest) {
 
   const ip = getClientIdentifier(request);
   const rateLimit = getRequestRateLimiter(ip, MAX_REQUESTS_PER_MINUTE);
+
   if (!rateLimit.allowed) {
     return NextResponse.json(
       { error: "Too many requests. Please try again in a minute." },
@@ -41,9 +48,11 @@ export async function POST(request: NextRequest) {
   const name = (typeof body.name === "string" ? body.name : "")
     .trim()
     .slice(0, MAX_NAME_LENGTH);
+
   const email = (typeof body.email === "string" ? body.email : "")
     .trim()
     .slice(0, MAX_EMAIL_LENGTH);
+
   const message = (typeof body.message === "string" ? body.message : "")
     .trim()
     .slice(0, MAX_MESSAGE_LENGTH);
@@ -70,7 +79,14 @@ export async function POST(request: NextRequest) {
   }
 
   try {
-    const saved = await insertContactSubmission({ name, email, message });
+    // 1. Save message in MongoDB
+    const saved = await insertContactSubmission({
+      name,
+      email,
+      message,
+    });
+
+    // 2. Send notification email through Resend
     const notification = await sendContactNotification({
       name: saved.name,
       email: saved.email,
@@ -86,17 +102,13 @@ export async function POST(request: NextRequest) {
       { status: 201 },
     );
   } catch (error) {
-    const message = error instanceof Error ? error.message : "";
-    const isConfigIssue =
-      /Supabase.*configured|service-role key|misconfigured/i.test(message);
+    console.error("Contact submission failed:", error);
 
     return NextResponse.json(
       {
-        error: isConfigIssue
-          ? "Contact form is temporarily unavailable."
-          : "Unable to save your message right now.",
+        error: "Unable to save your message right now.",
       },
-      { status: isConfigIssue ? 503 : 500 },
+      { status: 500 },
     );
   }
 }

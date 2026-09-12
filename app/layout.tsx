@@ -4,6 +4,7 @@ import { Outfit, Playfair_Display } from "next/font/google";
 import { SmoothScroll } from "@/components/smooth-scroll";
 import "./globals.css";
 import { DevToolsGuard } from "@/components/dev-tools-guard.tsx";
+import "../components/off-the-clock-page.css";
 
 const outfit = Outfit({
   subsets: ["latin"],

@@ -21,16 +21,16 @@ export function DevToolsGuard() {
     };
 
     const onKeyDown = (e: KeyboardEvent) => {
-      const key = e.key.toLowerCase();
+      const key = typeof e.key === "string" ? e.key.toLowerCase() : "";
 
       const shortcut =
         key === "f12" ||
-        (e.ctrlKey && e.shiftKey && ["i", "j", "c"].includes(key)) ||
-        (e.metaKey && e.altKey && ["i", "j", "c"].includes(key)) ||
+        (e.ctrlKey && e.shiftKey && (key === "i" || key === "j")) ||
         (e.ctrlKey && key === "u");
 
       if (shortcut) {
-        setBlocked(true);
+        e.preventDefault();
+        e.stopPropagation();
       }
     };
 

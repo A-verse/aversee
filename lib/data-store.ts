@@ -12,10 +12,28 @@ export type GuestbookInsert = {
   message: string;
 };
 
+export type ContactSubmissionInsert = {
+  name: string;
+  email: string;
+  message: string;
+};
+
+export type ContactSubmission = {
+  id: string;
+  name: string;
+  email: string;
+  message: string;
+  createdAt: string;
+};
+
 async function getDatabase() {
   const client = await clientPromise;
   return client.db("guestbook");
 }
+
+// ─────────────────────────────────────────────
+// Guestbook
+// ─────────────────────────────────────────────
 
 export async function readGuestbookSignatures(): Promise<PublicSignature[]> {
   const db = await getDatabase();
@@ -50,6 +68,33 @@ export async function insertGuestbookSignature(
   return {
     id: result.insertedId.toString(),
     name: document.name,
+    message: document.message,
+    createdAt: document.createdAt.toISOString(),
+  };
+}
+
+// ─────────────────────────────────────────────
+// Contact
+// ─────────────────────────────────────────────
+
+export async function insertContactSubmission(
+  input: ContactSubmissionInsert,
+): Promise<ContactSubmission> {
+  const db = await getDatabase();
+
+  const document = {
+    name: input.name.trim(),
+    email: input.email.trim(),
+    message: input.message.trim(),
+    createdAt: new Date(),
+  };
+
+  const result = await db.collection("contact_submissions").insertOne(document);
+
+  return {
+    id: result.insertedId.toString(),
+    name: document.name,
+    email: document.email,
     message: document.message,
     createdAt: document.createdAt.toISOString(),
   };
