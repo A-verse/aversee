@@ -28,6 +28,7 @@ export type ContactSubmission = {
 
 async function getDatabase() {
   const client = await clientPromise;
+
   return client.db("guestbook");
 }
 
