@@ -10306,3 +10306,158 @@ body {
   object-fit: cover !important;
   border-radius: 50% !important;
 }
+
+/* =========================================================
+   MOBILE ONLY - NAME HERO
+   Desktop remains untouched
+   ========================================================= */
+
+@media (max-width: 700px) {
+  .name-hero {
+    padding-top: 2rem !important;
+    padding-bottom: 3.5rem !important;
+  }
+
+  .name-hero-inner {
+    width: 100% !important;
+    padding-inline: 1.25rem !important;
+  }
+
+  .name-hero-pill {
+    min-height: 2rem !important;
+    height: 2rem !important;
+    padding: 0.35rem 0.75rem !important;
+    margin-bottom: 2.5rem !important;
+
+    border: 1px solid rgba(255, 255, 255, 0.08) !important;
+    background: #000 !important;
+    box-shadow: none !important;
+
+    font-size: 0.7rem !important;
+  }
+
+  .name-hero-name {
+    width: 100% !important;
+    max-width: 100% !important;
+
+    font-size: clamp(3.7rem, 19vw, 6rem) !important;
+    line-height: 0.84 !important;
+    letter-spacing: -0.07em !important;
+
+    text-align: center !important;
+    white-space: nowrap !important;
+  }
+
+  .name-hero-tagline {
+    max-width: 20rem !important;
+    margin-top: 2rem !important;
+
+    font-size: 0.78rem !important;
+    line-height: 1.7 !important;
+    letter-spacing: 0.14em !important;
+
+    text-align: center !important;
+  }
+
+  .name-hero-tagline em {
+    margin-top: 0.65rem !important;
+
+    font-size: clamp(1.8rem, 9vw, 2.8rem) !important;
+    line-height: 1 !important;
+    letter-spacing: -0.04em !important;
+  }
+
+  .name-hero-badges {
+    position: static !important;
+
+    width: 100% !important;
+    margin-top: 2.5rem !important;
+    padding: 0 !important;
+
+    display: flex !important;
+    flex-direction: row !important;
+    justify-content: space-between !important;
+    align-items: flex-start !important;
+
+    gap: 1rem !important;
+  }
+
+  .name-hero-badge {
+    width: calc(50% - 0.5rem) !important;
+    min-width: 0 !important;
+
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+
+    gap: 0.45rem !important;
+    text-align: center !important;
+  }
+
+  .name-hero-badge:last-child {
+    flex-direction: column !important;
+  }
+
+  .name-hero-badge div,
+  .name-hero-badge:last-child div {
+    align-items: center !important;
+    text-align: center !important;
+  }
+
+  .name-hero-badge-icon {
+    width: 1.8rem !important;
+    height: 1.8rem !important;
+    flex: 0 0 1.8rem !important;
+  }
+
+  .name-hero-badge strong {
+    font-size: 0.58rem !important;
+    line-height: 1.2 !important;
+    letter-spacing: 0.03em !important;
+    white-space: nowrap !important;
+  }
+
+  .name-hero-badge small {
+    font-size: 0.58rem !important;
+    line-height: 1.2 !important;
+    letter-spacing: 0.03em !important;
+    white-space: nowrap !important;
+  }
+}
+
+/* Smaller phones */
+@media (max-width: 380px) {
+  .name-hero {
+    padding-top: 1.5rem !important;
+    padding-bottom: 3rem !important;
+  }
+
+  .name-hero-inner {
+    padding-inline: 1rem !important;
+  }
+
+  .name-hero-pill {
+    margin-bottom: 2.25rem !important;
+  }
+
+  .name-hero-name {
+    font-size: clamp(3.35rem, 19vw, 4.6rem) !important;
+  }
+
+  .name-hero-tagline {
+    max-width: 18rem !important;
+    font-size: 0.72rem !important;
+  }
+
+  .name-hero-tagline em {
+    font-size: 2rem !important;
+  }
+
+  .name-hero-badges {
+    gap: 0.5rem !important;
+  }
+
+  .name-hero-badge {
+    width: calc(50% - 0.25rem) !important;
+  }
+}
