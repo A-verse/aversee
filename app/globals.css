@@ -10471,7 +10471,7 @@ body {
   .name-hero {
     min-height: 680px !important;
     height: 680px !important;
-    padding-top: 70px !important; /* 110px → 70px */
+    padding-top: 30px !important; /* 110px → 70px */
   }
 
   .name-hero-name {
