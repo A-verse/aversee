@@ -10461,3 +10461,46 @@ body {
     width: calc(50% - 0.25rem) !important;
   }
 }
+
+/* =========================================
+   MOBILE HERO HEIGHT FIX
+   Desktop remains untouched
+   ========================================= */
+
+@media (max-width: 700px) {
+  .name-hero {
+    min-height: 680px !important;
+    height: 680px !important;
+    padding-top: 80px !important; /* 110px → 70px */
+  }
+
+  .name-hero-name {
+    margin-top: 20px !important; /* 35px → 20px */
+  }
+
+  .name-hero-tagline {
+    margin-top: 16px !important; /* 22px → 16px */
+  }
+
+  .name-hero-inner {
+    width: 100% !important;
+    min-height: 100% !important;
+
+    display: flex !important;
+    flex-direction: column !important;
+    justify-content: flex-start !important;
+  }
+
+  .name-hero-badges {
+    margin-top: auto !important;
+    padding-top: 50px !important;
+  }
+}
+
+/* Smaller phones */
+@media (max-width: 380px) {
+  .name-hero {
+    min-height: 620px !important;
+    height: 620px !important;
+  }
+}
