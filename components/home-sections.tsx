@@ -1,6 +1,7 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
+import Image from "next/image";
 import Link from "next/link";
 import { SectionHeading } from "./site-shell";
 import { Reveal } from "./reveal";
@@ -52,7 +53,60 @@ const traits = [
   "Secure",
 ];
 
+function SocialIcon({
+  name,
+}: {
+  name: "github" | "linkedin" | "leetcode" | "instagram";
+}) {
+  if (name === "github") {
+    return (
+      <svg viewBox="0 0 24 24" aria-hidden="true">
+        <path d="M9 19c-4 1.2-4-2-5-2m10 4v-3.9c0-1.1.4-1.8 1-2.3-3.3-.4-6.8-1.6-6.8-7a5.5 5.5 0 0 1 1.5-3.8A5.1 5.1 0 0 1 9.8 3S11 2.6 14 4.6a10.5 10.5 0 0 1 5.5 0C22.5 2.6 23.7 3 23.7 3a5.1 5.1 0 0 1 .1 5 5.5 5.5 0 0 1 1.5 3.8c0 5.4-3.5 6.6-6.8 7 .6.5 1 1.4 1 2.8V21" />
+      </svg>
+    );
+  }
+
+  if (name === "linkedin") {
+    return (
+      <svg viewBox="0 0 24 24" aria-hidden="true">
+        <path d="M6.5 8.5V18M6.5 5.5v.01M11 18v-5.2a2.8 2.8 0 0 1 5.6 0V18M11 10.8V18M19 18v-5.2a5.2 5.2 0 0 0-10.4 0" />
+      </svg>
+    );
+  }
+
+  if (name === "leetcode") {
+    return (
+      <svg viewBox="0 0 24 24" aria-hidden="true">
+        <path d="M9.5 3 4 8.5 9.5 14M14.5 10 20 15.5 14.5 21M13 3 11 21" />
+      </svg>
+    );
+  }
+
+  return (
+    <svg viewBox="0 0 24 24" aria-hidden="true">
+      <rect x="3" y="3" width="18" height="18" rx="5" />
+      <circle cx="12" cy="12" r="4" />
+      <circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none" />
+    </svg>
+  );
+}
+
 export function Hero() {
+  const carouselImages = [
+    "/images/IMG.jpg",
+    "/images/img2.jpg",
+    "/images/img3.jpeg",
+  ];
+  const [activeImage, setActiveImage] = useState(1);
+
+  useEffect(() => {
+    const interval = window.setInterval(() => {
+      setActiveImage((current) => (current + 1) % carouselImages.length);
+    }, 4200);
+
+    return () => window.clearInterval(interval);
+  }, [carouselImages.length]);
+
   return (
     <section className="hero-section">
       <Reveal className="hero-copy" stagger={0.12}>
@@ -67,16 +121,18 @@ export function Hero() {
           that <em>work</em>
         </h1>
         <p className="hero-description" data-reveal>
-          I&apos;m Anjali Kamal, a final-year Full Stack Developer at IIITDM
-          Jabalpur. I build end-to-end web products — from React/Next.js
-          interfaces to Node and PostgreSQL-backed systems — with a focus on
-          clean architecture and shipping things that actually work.
+          I&apos;m Anjali Kamal, a final-year student at IIITDM Jabalpur who
+          genuinely enjoys building things and figuring out how they work. Most
+          of my time goes into full-stack development, DSA, and turning random
+          ideas into projects that I can actually use.
         </p>
+
         <p className="hero-description" data-reveal>
-          Recent work spans an AI-assisted communication platform, a full-stack
-          e-commerce store, and internal tools built during my internship.
-          Currently deep in placement prep and always building something on the
-          side.
+          I&apos;m curious about what happens behind the interface too, from how
+          APIs and databases fit together to how a system can stay fast and
+          reliable as it grows. These days, I&apos;m preparing for placements,
+          working on my projects, and usually finding something new to build,
+          break, and fix.
         </p>
         <div className="social-links" data-reveal>
           <a href="https://github.com/A-verse" target="_blank" rel="noreferrer">
@@ -108,21 +164,28 @@ export function Hero() {
           Dive in deeper <span>→</span>
         </Link>
       </Reveal>
-      <div className="hero-photo hero-photo-in">
-        <div
-          className="photo-card photo-card-left"
-          style={{ backgroundImage: "url('/images/travel-forest.jpg')" }}
-        />
+      {/* CAROUSEL */}
+      <div className="about-photo-stack" data-reveal>
+        {carouselImages.map((image, index) => {
+          const position =
+            index === activeImage
+              ? "main"
+              : index === (activeImage + 1) % carouselImages.length
+                ? "right"
+                : "left";
 
-        <div
-          className="photo-card photo-card-main"
-          style={{ backgroundImage: "url('/images/avatar.jpg')" }}
-        />
-
-        <div
-          className="photo-card photo-card-right"
-          style={{ backgroundImage: "url('/images/travel-mountains.jpg')" }}
-        />
+          return (
+            <div key={image} className={`about-photo about-photo-${position}`}>
+              <Image
+                src={image}
+                alt={index === 1 ? "AK" : ""}
+                fill
+                sizes="(max-width: 700px) 80vw, 400px"
+                style={{ objectFit: "cover" }}
+              />
+            </div>
+          );
+        })}
       </div>
     </section>
   );
@@ -240,256 +303,62 @@ export function BehindTheCurtains() {
 }
 
 export function ContactFooter() {
+  const headingRef = useRef<HTMLHeadingElement>(null);
+  const [avatarSize, setAvatarSize] = useState(0);
+
+  useEffect(() => {
+    const heading = headingRef.current;
+
+    if (!heading) return;
+
+    const updateAvatarSize = () => {
+      const height = heading.getBoundingClientRect().height;
+      setAvatarSize(height);
+    };
+
+    updateAvatarSize();
+
+    const observer = new ResizeObserver(updateAvatarSize);
+    observer.observe(heading);
+
+    return () => {
+      observer.disconnect();
+    };
+  }, []);
+
   return (
     <>
       {/* CONTACT */}
-      <section
-        className="contact-section"
-        style={{
-          width: "100%",
-          boxSizing: "border-box",
-          padding: "70px 0 60px",
-        }}
-      >
-        <div
-          className="contact-inner"
-          style={{
-            position: "relative",
-            width: "100%",
-            maxWidth: "1400px",
-            minHeight: "220px",
-            margin: "0 auto",
-            padding: "0 40px",
-            boxSizing: "border-box",
-            display: "flex",
-            alignItems: "center",
-          }}
-        >
+      <section className="contact-section">
+        <div className="contact-inner">
           {/* Heading */}
-          <div
-            className="contact-heading"
-            style={{
-              position: "relative",
-              zIndex: 2,
-              width: "100%",
-              maxWidth: "950px",
-              display: "flex",
-              alignItems: "center",
-            }}
-          >
-            <h2
+          <div className="contact-heading">
+            <div
+              className="contact-avatar"
+              aria-hidden="true"
               style={{
-                margin: 0,
-                padding: 0,
-                lineHeight: "0.88",
-                letterSpacing: "-0.055em",
+                width: avatarSize > 0 ? `${avatarSize}px` : undefined,
+                height: avatarSize > 0 ? `${avatarSize}px` : undefined,
+                flex: avatarSize > 0 ? `0 0 ${avatarSize}px` : undefined,
               }}
             >
-              <span
-                className="contact-line-primary"
-                style={{
-                  display: "block",
-                  fontSize: "clamp(3.5rem, 7vw, 7rem)",
-                  lineHeight: "0.88",
-                  whiteSpace: "nowrap",
-                }}
-              >
-                Let&apos;s create
-              </span>
+              <img src="/images/avatar.jpg" alt="" />
+            </div>
 
-              <span
-                className="contact-line-secondary"
-                style={{
-                  display: "block",
-                  fontSize: "clamp(3.5rem, 7vw, 7rem)",
-                  lineHeight: "0.88",
-                  whiteSpace: "nowrap",
-                }}
-              >
-                something real.
+            <h2 ref={headingRef}>
+              <span className="contact-line-primary">Let&apos;s create</span>
+
+              <span className="contact-line-muted">
+                <span className="contact-line-secondary">something</span>{" "}
+                <span className="contact-line-tertiary">real.</span>
               </span>
             </h2>
           </div>
-
-          {/* Orb */}
-          <div className="contact-orb" aria-hidden="true">
-            <div className="contact-orb-core" />
-          </div>
         </div>
-
-        <style jsx>{`
-          .contact-section {
-            width: 100%;
-            box-sizing: border-box;
-          }
-
-          .contact-inner {
-            position: relative;
-          }
-
-          .contact-heading {
-            position: relative;
-            z-index: 2;
-          }
-
-          /* =========================
-             ORB
-             ========================= */
-
-          .contact-orb {
-            position: absolute;
-            width: 18rem;
-            height: 18rem;
-
-            /* Same as desktop container padding */
-            right: 40px;
-            top: 50%;
-
-            transform: translateY(-50%);
-            border-radius: 50%;
-
-            background: radial-gradient(
-              circle,
-              transparent 54%,
-              rgba(80, 70, 255, 0.18) 58%,
-              rgba(95, 65, 255, 0.85) 66%,
-              rgba(70, 150, 255, 0.75) 73%,
-              rgba(50, 100, 255, 0.1) 80%,
-              transparent 84%
-            );
-
-            filter: blur(1px);
-
-            box-shadow:
-              0 0 18px rgba(105, 80, 255, 0.5),
-              0 0 45px rgba(70, 100, 255, 0.28);
-
-            animation: contact-orb-float 5s ease-in-out infinite;
-
-            z-index: 1;
-            pointer-events: none;
-          }
-
-          .contact-orb-core {
-            position: absolute;
-            inset: 15%;
-            border-radius: 50%;
-            background: #000;
-          }
-
-          @keyframes contact-orb-float {
-            0%,
-            100% {
-              transform: translateY(-50%) scale(1);
-            }
-
-            50% {
-              transform: translateY(calc(-50% - 8px)) scale(1.025);
-            }
-          }
-
-          /* =========================
-             TABLET
-             ========================= */
-
-          @media (max-width: 900px) {
-            .contact-section {
-              padding: 60px 0 50px !important;
-            }
-
-            .contact-inner {
-              min-height: 190px;
-              padding: 0 24px !important;
-            }
-
-            .contact-line-primary,
-            .contact-line-secondary {
-              font-size: clamp(3rem, 10vw, 5rem) !important;
-            }
-
-            .contact-orb {
-              width: 13rem !important;
-              height: 13rem !important;
-
-              /* Same as tablet container padding */
-              right: 24px !important;
-
-              top: 50% !important;
-            }
-          }
-
-          /* =========================
-             MOBILE
-             ========================= */
-
-          @media (max-width: 600px) {
-            .contact-section {
-              padding: 45px 0 45px !important;
-            }
-
-            .contact-inner {
-              min-height: 150px;
-              padding: 0 20px !important;
-            }
-
-            .contact-line-primary,
-            .contact-line-secondary {
-              font-size: clamp(2.5rem, 10.5vw, 4rem) !important;
-              white-space: nowrap !important;
-            }
-
-            .contact-orb {
-              width: 5rem !important;
-              height: 5rem !important;
-
-              /* Same as mobile container padding */
-              right: 20px !important;
-
-              top: 50% !important;
-              opacity: 0.65;
-            }
-          }
-
-          /* =========================
-             SMALL MOBILE
-             ========================= */
-
-          @media (max-width: 400px) {
-            .contact-line-primary,
-            .contact-line-secondary {
-              font-size: 2.3rem !important;
-            }
-
-            .contact-orb {
-              width: 4rem !important;
-              height: 4rem !important;
-              right: 20px !important;
-              top: 50% !important;
-            }
-          }
-
-          /* =========================
-             REDUCED MOTION
-             ========================= */
-
-          @media (prefers-reduced-motion: reduce) {
-            .contact-orb {
-              animation: none;
-              transform: translateY(-50%);
-            }
-          }
-        `}</style>
       </section>
 
       {/* FOOTER */}
-      <footer
-        className="site-footer-rich"
-        style={{
-          width: "100%",
-          boxSizing: "border-box",
-          padding: "60px 40px 28px",
-        }}
-      >
+      <footer className="site-footer-rich">
         <div
           className="footer-top"
           style={{
@@ -540,6 +409,7 @@ export function ContactFooter() {
               gap: "clamp(25px, 4vw, 60px)",
             }}
           >
+            {/* GENERAL */}
             <div
               style={{
                 display: "flex",
@@ -548,12 +418,14 @@ export function ContactFooter() {
               }}
             >
               <h4 style={{ margin: "0 0 6px" }}>General</h4>
+
               <Link href="/">Home</Link>
               <Link href="/blogs">Blogs</Link>
               <Link href="/guestbook">Guestbook</Link>
               <Link href="/uses">Uses</Link>
             </div>
 
+            {/* ABOUT */}
             <div
               style={{
                 display: "flex",
@@ -562,12 +434,14 @@ export function ContactFooter() {
               }}
             >
               <h4 style={{ margin: "0 0 6px" }}>About</h4>
+
               <Link href="/about">About Me</Link>
               <Link href="/projects">Projects</Link>
               <Link href="/off-the-clock">Off the Clock</Link>
               <Link href="/book-call">Contact</Link>
             </div>
 
+            {/* CONNECT */}
             <div
               style={{
                 display: "flex",
@@ -581,98 +455,42 @@ export function ContactFooter() {
                 href="https://github.com/A-verse"
                 target="_blank"
                 rel="noreferrer"
+                aria-label="GitHub"
+                title="GitHub"
               >
-                GitHub
+                <SocialIcon name="github" />
               </a>
 
               <a
                 href="https://linkedin.com/in/theanjalikamal"
                 target="_blank"
                 rel="noreferrer"
+                aria-label="LinkedIn"
+                title="LinkedIn"
               >
-                LinkedIn
+                <SocialIcon name="linkedin" />
               </a>
 
               <a
                 href="https://leetcode.com/u/A-verse/"
                 target="_blank"
                 rel="noreferrer"
+                aria-label="LeetCode"
+                title="LeetCode"
               >
-                LeetCode
+                <SocialIcon name="leetcode" />
               </a>
 
               <a
                 href="https://instagram.com/anjalikamal31"
                 target="_blank"
                 rel="noreferrer"
+                aria-label="Instagram"
+                title="Instagram"
               >
-                Instagram
+                <SocialIcon name="instagram" />
               </a>
             </div>
-          </div>
-        </div>
-
-        {/* FOOTER BOTTOM */}
-        <div
-          className="footer-bottom"
-          style={{
-            width: "100%",
-            maxWidth: "1400px",
-            margin: "55px auto 0",
-            paddingTop: "22px",
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "space-between",
-            gap: "20px",
-            boxSizing: "border-box",
-          }}
-        >
-          <span>© 2026 Anjali Kamal</span>
-
-          <div
-            className="footer-socials"
-            style={{
-              display: "flex",
-              alignItems: "center",
-              gap: "24px",
-              flexWrap: "wrap",
-            }}
-          >
-            <a
-              href="https://github.com/A-verse"
-              target="_blank"
-              rel="noreferrer"
-              aria-label="GitHub"
-            >
-              GitHub
-            </a>
-
-            <a
-              href="https://linkedin.com/in/theanjalikamal"
-              target="_blank"
-              rel="noreferrer"
-              aria-label="LinkedIn"
-            >
-              LinkedIn
-            </a>
-
-            <a
-              href="https://leetcode.com/u/A-verse/"
-              target="_blank"
-              rel="noreferrer"
-              aria-label="LeetCode"
-            >
-              LeetCode
-            </a>
-
-            <a
-              href="https://instagram.com/anjalikamal31"
-              target="_blank"
-              rel="noreferrer"
-              aria-label="Instagram"
-            >
-              Instagram
-            </a>
           </div>
         </div>
 

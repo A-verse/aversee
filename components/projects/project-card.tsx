@@ -1,20 +1,23 @@
-import Image from 'next/image'
-import type { Project } from './projects-data'
-import { PhoneMockup } from './phone-mockup'
-import { LaptopMockup } from './laptop-mockup'
-import { SparkleIcon } from './sparkle-icon'
+import Image from "next/image";
+import type { Project } from "./projects-data";
+import { PhoneMockup } from "./phone-mockup";
+import { LaptopMockup } from "./laptop-mockup";
+import { SparkleIcon } from "./sparkle-icon";
 
 export function ProjectCard({ project }: { project: Project }) {
   return (
     <div className="project-card w-full" data-project-id={project.id}>
-      <div className="flex flex-col w-full lg:max-w-[865px]" style={{ margin: 0, border: 0 }}>
+      <div
+        className="flex flex-col w-full lg:max-w-[865px]"
+        style={{ margin: 0, border: 0 }}
+      >
         <a
           href={project.url}
           target="_blank"
           rel="noopener noreferrer"
           draggable={false}
           className="project-frame group relative block w-full lg:max-w-[865px] lg:h-auto lg:min-h-[350px]"
-          style={{ background: 'transparent' }}
+          style={{ background: "transparent" }}
         >
           <div className="relative w-full h-full">
             {/* Tablet / desktop layout: 2 phones + laptop */}
@@ -37,7 +40,7 @@ export function ProjectCard({ project }: { project: Project }) {
                   alt={project.title}
                   gradient={project.gradient}
                   fit={project.mainImageFit}
-                  priority={project.id === 'rune'}
+                  priority={project.id === "rune"}
                 />
               </div>
             </div>
@@ -56,7 +59,10 @@ export function ProjectCard({ project }: { project: Project }) {
         {/* Mobile info panel (hidden on lg where sticky panel takes over) */}
         <div className="mobile-project-info mt-4 sm:mt-5 p-4 sm:p-5 bg-neutral-100 dark:bg-white/5 rounded-xl sm:rounded-2xl border border-black/10 dark:border-white/10 lg:hidden">
           <div className="flex items-center mb-2 sm:mb-3">
-            <div aria-hidden="true" className={`mr-2 sm:mr-3 h-1 w-5 sm:w-6 rounded-full ${project.accent.dash}`} />
+            <div
+              aria-hidden="true"
+              className={`mr-2 sm:mr-3 h-1 w-5 sm:w-6 rounded-full ${project.accent.dash}`}
+            />
             <h3 className="text-xl sm:text-2xl font-semibold text-neutral-900 dark:text-white font-outfit">
               {project.title}
             </h3>
@@ -84,7 +90,7 @@ export function ProjectCard({ project }: { project: Project }) {
                 className="flex items-center gap-1.5 lg:gap-2 rounded-xl border border-black/10 dark:border-white/[0.14] dark:border-t-white/[0.25] bg-neutral-100 dark:bg-[#111111] dark:shadow-[inset_0_1px_1px_rgba(255,255,255,0.05),0_1px_2px_rgba(0,0,0,0.4)] px-2.5 py-1 font-outfit text-xs text-neutral-700 dark:text-neutral-300 transition-colors"
               >
                 <Image
-                  src={t.icon || '/placeholder.svg'}
+                  src={t.icon || "/placeholder.svg"}
                   alt={t.name}
                   width={16}
                   height={16}
@@ -97,5 +103,5 @@ export function ProjectCard({ project }: { project: Project }) {
         </div>
       </div>
     </div>
-  )
+  );
 }

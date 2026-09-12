@@ -115,7 +115,7 @@ export function SiteShell({ children }: { children: React.ReactNode }) {
             <small>FULL STACK DEVELOPER</small>
 
             <strong>
-              <i /> SHIPPING PROJECTS
+              <i /> Open to Opportunities
             </strong>
           </span>
         </Link>
@@ -147,13 +147,17 @@ export function SiteShell({ children }: { children: React.ReactNode }) {
 
           <span className="nav-divider" />
 
-          <button
-            type="button"
-            className="theme-button"
-            aria-label="Toggle theme"
+          {/* DESKTOP RESUME */}
+
+          <a
+            href="/resume.pdf"
+            target="_blank"
+            rel="noreferrer"
+            className="resume-button"
           >
-            ◐
-          </button>
+            Resume
+            <span>↗</span>
+          </a>
         </nav>
 
         {/* ===================================================
@@ -231,7 +235,8 @@ export function SiteShell({ children }: { children: React.ReactNode }) {
             MOBILE EXPANDED MENU
 
             Mobile ONLY.
-            Here we DO show Home / About / Work / Blogs.
+            Home removed.
+            Resume added instead.
             =================================================== */}
 
         {menu && (
@@ -239,16 +244,31 @@ export function SiteShell({ children }: { children: React.ReactNode }) {
             {/* PRIMARY NAV */}
 
             <div className="mobile-primary-links">
-              {primary.map(([label, href]) => (
-                <Link
-                  key={href}
-                  href={href}
-                  className={active(href) ? "nav-active" : ""}
-                  onClick={() => setMenu(false)}
-                >
-                  {label}
-                </Link>
-              ))}
+              {primary
+                .filter(([label]) => label !== "Home")
+                .map(([label, href]) => (
+                  <Link
+                    key={href}
+                    href={href}
+                    className={active(href) ? "nav-active" : ""}
+                    onClick={() => setMenu(false)}
+                  >
+                    {label}
+                  </Link>
+                ))}
+
+              {/* MOBILE RESUME */}
+
+              <a
+                href="/resume.pdf"
+                target="_blank"
+                rel="noreferrer"
+                className="resume-button"
+                onClick={() => setMenu(false)}
+              >
+                Resume
+                <span>↗</span>
+              </a>
             </div>
 
             {/* SECONDARY / FEATURED */}

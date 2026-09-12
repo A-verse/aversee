@@ -3,6 +3,7 @@ import type { Metadata, Viewport } from "next";
 import { Outfit, Playfair_Display } from "next/font/google";
 import { SmoothScroll } from "@/components/smooth-scroll";
 import "./globals.css";
+import { DevToolsGuard } from "@/components/dev-tools-guard.tsx";
 
 const outfit = Outfit({
   subsets: ["latin"],
@@ -59,6 +60,7 @@ export default function RootLayout({
       >
         <SmoothScroll />
         {children}
+        <DevToolsGuard />
         {process.env.NODE_ENV === "production" && <Analytics />}
       </body>
     </html>

@@ -103,8 +103,7 @@ export function SpotifyCard() {
           <div className="spotify-track-copy">
             <p>
               I recently listened to <strong>{track.name}</strong>
-              <strong>{track.artist}</strong> from the album{" "}
-              <strong>{track.album}</strong>
+              by from the album <strong>{track.album}</strong>.
             </p>
           </div>
 

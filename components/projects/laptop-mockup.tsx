@@ -1,17 +1,17 @@
-import Image from 'next/image'
+import Image from "next/image";
 
 export function LaptopMockup({
   src,
   alt,
   gradient,
-  fit = 'cover',
+  fit = "cover",
   priority = false,
 }: {
-  src: string
-  alt: string
-  gradient: string
-  fit?: 'cover' | 'fill'
-  priority?: boolean
+  src: string;
+  alt: string;
+  gradient: string;
+  fit?: "cover" | "fill";
+  priority?: boolean;
 }) {
   return (
     <div
@@ -30,12 +30,12 @@ export function LaptopMockup({
               {/* Screen */}
               <div className="relative w-full h-full bg-white">
                 <Image
-                  src={src || '/placeholder.svg'}
+                  src={src}
                   alt={alt}
                   width={1200}
                   height={750}
                   priority={priority}
-                  className={`w-full h-full ${fit === 'fill' ? 'object-fill' : 'object-cover'} object-top`}
+                  className={`w-full h-full ${fit === "fill" ? "object-fill" : "object-cover"} object-top`}
                 />
                 <div className="absolute inset-0 bg-gradient-to-tr from-white/10 via-transparent to-transparent pointer-events-none mix-blend-overlay z-10 opacity-50" />
               </div>
@@ -46,5 +46,5 @@ export function LaptopMockup({
         </div>
       </div>
     </div>
-  )
+  );
 }

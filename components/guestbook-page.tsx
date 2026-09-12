@@ -112,52 +112,12 @@ export function GuestbookPage() {
     <SiteShell>
       <PageFrame>
         {/* HERO */}
-        <div
-          className="guestbook-hero"
-          style={{
-            display: "grid",
-            gridTemplateColumns: "1fr 0.72fr",
-            alignItems: "center",
-            gap: "clamp(40px, 7vw, 110px)",
-            width: "100%",
-            maxWidth: "1320px",
-            margin: "0 auto",
-            padding: "20px 40px 40px",
-            boxSizing: "border-box",
-          }}
-        >
+        <div className="guestbook-hero">
           {/* LEFT */}
-          <div
-            style={{
-              position: "relative",
-              alignSelf: "center",
-              justifySelf: "start",
-              width: "100%",
-              paddingTop: "42px",
-            }}
-          >
-            <p
-              className="eyebrow"
-              style={{
-                position: "absolute",
-                top: "0",
-                left: "0",
-                margin: "0",
-                padding: "0",
-                lineHeight: "1",
-              }}
-            >
-              LEAVE YOUR SIGNATURE
-            </p>
+          <div className="guestbook-hero-copy">
+            <p className="eyebrow">LEAVE YOUR SIGNATURE</p>
 
-            <h1
-              className="guestbook-title"
-              style={{
-                margin: "0",
-                padding: "0",
-                lineHeight: "0.82",
-              }}
-            >
+            <h1 className="guestbook-title">
               GUEST
               <br />
               <em>book</em>
@@ -165,17 +125,7 @@ export function GuestbookPage() {
           </div>
 
           {/* RIGHT FORM */}
-          <form
-            className="guestbook-signin"
-            onSubmit={submit}
-            style={{
-              width: "100%",
-              maxWidth: "480px",
-              justifySelf: "end",
-              alignSelf: "center",
-              boxSizing: "border-box",
-            }}
-          >
+          <form className="guestbook-signin" onSubmit={submit}>
             <h2>
               Leave your <em>signature!</em>
             </h2>
