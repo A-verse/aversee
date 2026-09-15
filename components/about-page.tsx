@@ -10,7 +10,7 @@ import { ExperienceTimeline } from "./experience-timeline";
 import { BehindTheCurtains, ContactFooter } from "./home-sections";
 
 const aboutCarouselImages = [
-  "/images/IMG.jpg",
+  "/images/img1.jpeg",
   "/images/img2.jpg",
   "/images/img3.jpeg",
 ];

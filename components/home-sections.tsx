@@ -93,7 +93,7 @@ function SocialIcon({
 
 export function Hero() {
   const carouselImages = [
-    "/images/IMG.jpg",
+    "/images/img1.jpeg",
     "/images/img2.jpg",
     "/images/img3.jpeg",
   ];
