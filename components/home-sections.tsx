@@ -121,18 +121,12 @@ export function Hero() {
           that <em>work</em>
         </h1>
         <p className="hero-description" data-reveal>
-          I&apos;m Anjali Kamal, a final-year student at IIITDM Jabalpur who
-          genuinely enjoys building things and figuring out how they work. Most
-          of my time goes into full-stack development, DSA, and turning random
-          ideas into projects that I can actually use.
-        </p>
-
-        <p className="hero-description" data-reveal>
-          I&apos;m curious about what happens behind the interface too, from how
-          APIs and databases fit together to how a system can stay fast and
-          reliable as it grows. These days, I&apos;m preparing for placements,
-          working on my projects, and usually finding something new to build,
-          break, and fix.
+          I'm Anjali Kamal, a final-year student at IIITDM Jabalpur who enjoys
+          building things and understanding what happens behind the interface. I
+          work mainly with full-stack development and DSA, turning ideas into
+          practical, usable projects. I'm particularly interested in how APIs,
+          databases, and backend systems come together to build fast, reliable,
+          and scalable applications.
         </p>
         <div className="social-links" data-reveal>
           <a href="https://github.com/A-verse" target="_blank" rel="noreferrer">
