@@ -116,9 +116,7 @@ export function Hero() {
         <h1 data-reveal>
           Turning ideas
           <br />
-          into products
-          <br />
-          that <em>work</em>
+          into <em>products</em>
         </h1>
         <p className="hero-description" data-reveal>
           I'm Anjali Kamal, a final-year student at IIITDM Jabalpur who enjoys
